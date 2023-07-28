@@ -8,6 +8,11 @@ class PublishController(
     private val wqttService: WqttService
 ) {
 
-    @GetMapping
-    fun publish(@RequestParam topic: String, @RequestParam message: String) = wqttService.publish(topic, message)
+    @PostMapping
+    fun publish(@RequestBody payload: PublishRequestDto) = wqttService.publish(payload.topic, payload.message)
 }
+
+data class PublishRequestDto(
+    val topic: String,
+    val message: String
+)
